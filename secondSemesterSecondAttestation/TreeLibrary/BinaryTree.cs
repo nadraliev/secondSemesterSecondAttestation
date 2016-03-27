@@ -41,9 +41,9 @@ namespace TreeLibrary
             }
         }
 
-        public List<KeyValuePair<int, float[]>> Draw()    //returns list of pairs value-coordinates
+        public List<KeyValuePair<int, float[]>> Draw(int width)    //returns list of pairs value-coordinates
         {
-            if (head != null) return head.DrawNode();
+            if (head != null) return head.DrawNode(width);
             else return null;
         }
     }
