@@ -24,14 +24,20 @@ namespace CountNumbersBelowForm
 
         private void generateBtn_Click(object sender, EventArgs e)
         {
+            GenerateTree();
+            DrawTree(binaryTree);
+            GatherAndCountBelow();
+            GatherAndFindMax();
+        }
+
+        private void GenerateTree()
+        {
             Random random = new Random();
             binaryTree = new BinaryTree();
             for (int i = 0; i <= maxTreeSize; i++)
             {
                 binaryTree.Add(random.Next(100));
             }
-
-            DrawTree(binaryTree);
         }
 
         private void DrawTree(BinaryTree source)
@@ -68,10 +74,42 @@ namespace CountNumbersBelowForm
             mainPanel.Width = this.Width;
             mainPanel.Height = this.Height;
             mainPanel.Update();
-            generateBtn.Location = new Point(this.Width / 2 - generateBtn.Width/2, 20);
-            maxTreeSize = this.Width / 40;
+            maxTreeSize = this.Width / 45;
             if (binaryTree != null)
             DrawTree(binaryTree);
+        }
+
+        private void inputXNumeric_ValueChanged(object sender, EventArgs e)
+        {
+            GatherAndCountBelow();
+        }
+
+        private void inputKNumeric_ValueChanged(object sender, EventArgs e)
+        {
+            GatherAndCountBelow();
+        }
+
+        private void GatherAndCountBelow()
+        {
+            int k = (int)inputKNumeric.Value;
+            double x = (double)inputXNumeric.Value;
+            if (binaryTree != null) countBeloxResultLabel.Text = binaryTree.CountBelow(k, x).ToString();
+        }
+
+        private void inputLevelNumeric_ValueChanged(object sender, EventArgs e)
+        {
+            GatherAndFindMax();
+        }
+
+        private void GatherAndFindMax()
+        {
+            if (binaryTree != null)
+            {
+                int max = binaryTree.FindMaxOnLevel((int)inputLevelNumeric.Value);
+                if (max != -1)
+                    maxResultLabel.Text = max.ToString();
+                else maxResultLabel.ResetText();
+            }
         }
     }
 }

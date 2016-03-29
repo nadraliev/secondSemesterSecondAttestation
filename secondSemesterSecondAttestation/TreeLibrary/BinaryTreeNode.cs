@@ -112,5 +112,37 @@ namespace TreeLibrary
             if (right != null) result += 1 + right.ChildrenCount();
             return result;
         }
+
+        public int CountBelowKLessX(int k, double x, int callerLevel)
+        {
+            int result = 0;
+            if (++callerLevel > k && value < x) result++;
+            if (left != null) result += left.CountBelowKLessX(k, x, callerLevel);
+            if (right != null) result += right.CountBelowKLessX(k, x, callerLevel);
+            return result;
+        }
+
+        public int FindMaxOnLevel(int level, int callerLevel, int currMax)
+        {
+            int result = currMax;
+            if (++callerLevel == level)
+            {
+                if (result < value) result = value;
+                return result;
+            } else
+            {
+                if (left != null)
+                {
+                    int leftMax = left.FindMaxOnLevel(level, callerLevel, result);
+                    if (leftMax > result) result = leftMax;
+                }
+                if (right != null)
+                {
+                    int rightMax = right.FindMaxOnLevel(level, callerLevel, result);
+                    if (rightMax > result) result = rightMax;
+                }
+            }
+            return result;
+        }
     }
 }

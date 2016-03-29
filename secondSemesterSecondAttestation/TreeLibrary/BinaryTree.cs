@@ -46,5 +46,19 @@ namespace TreeLibrary
             if (head != null) return head.DrawNode(width);
             else return null;
         }
+
+        public int CountBelow(int k, double x)
+        {
+            if (k >= levels) return 0;
+            else if (head != null) return head.CountBelowKLessX(k, x, 0);
+            else return 0;
+        }
+
+        public int FindMaxOnLevel(int level)
+        {
+            if (level > levels) return -1;
+            else if (head != null) return head.FindMaxOnLevel(level, 0, 0);
+            else return -1;
+        }
     }
 }
